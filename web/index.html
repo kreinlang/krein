@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+
+	<h1>Testing form</h1>
+
+	<img src="set.png"/>
+
+
+	<form>
+		<input type="" name="message", id="message">
+		<button onclick="run()">submit</button>
+	</form>
+
+
+	<script type="text/javascript">
+
+		let host = window.location.origin;
+		let page = window.location.pathname.substring(1);
+
+		let websocket_addr = (host).replace('http', 'ws');
+        websocket_addr += ('?message=' + page);
+
+        var webSocket = new WebSocket(websocket_addr);
+
+		webSocket.onopen = function (){
+			webSocket.send('opened');
+			alert('socket is opened');
+		}
+
+		function run(){
+			webSocket.send(JSON.stringify({"message": document.getElementById(("message").value)}))
+		}
+
+	</script>
+
+</body>
+</html>
